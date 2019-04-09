@@ -4,9 +4,9 @@
  * Description:
  *  用于处理请求对象的相关内容
  */
-let object = require('./object')
-let logger = require('./logger')
 let excludeParams = ['page', 'pagesize', 'maxsize', 'order']   // 不列入合并搜索的字段名
+const logger = require('./logger')
+const { Op } = require('sequelize')
 
 /**
  * 根据请求参数获取Sequelize搜索条件对象
@@ -14,31 +14,49 @@ let excludeParams = ['page', 'pagesize', 'maxsize', 'order']   // 不列入合�
  * @returns {{where: {}, offset: (number|*), limit: *}}
  */
 const getSearchBundle = (query) => {
+  if (!query) {
+    return {}
+  }
   let { pagesize, page } = query, offset, limit, order;
   pagesize = (pagesize) ? (parseInt(pagesize)) : 20
   page = page || 1
   offset = pagesize * (page - 1)
   limit = pagesize
   let where = {} // 搜索条件对象
+  const _getOrder = (order) => {
+    let result = []
+    if (Array.isArray(order)) {
+      for(let item of order) {
+        if (typeof item === 'object') {
+          result.push([item.key, item.type ? item.type : 'ASC'])
+        } else if (typeof item === 'string') {
+          result.push([item, 'ASC'])
+        }
+      }
+    } else {
+      result = [['createdAt', 'DESC']]
+    }
+    return result
+  }
   for(let p in query){
     if (!excludeParams.includes(p)) {
       if (!((query[p] === '') || (query[p] === null ))) {
         if (!isNaN(parseFloat(query[p])) || p === 'id') {
           where[p] = query[p];
         } else {
-          where[p] = {$like: `%${query[p]}%`};
+          where[p] = {
+            [Op.like]: `%${query[p]}%`
+          };
         }
       } else {
-        console.log('RequestHelper.js:  the param ' + p + ' is empty');
+        console.log('request.js getSearchBundle func:  the param ' + p + ' is empty');
       }
     }
   }
-  if (query.order) {
-    order = `${query.order.key} ${query.order.type ? query.order.type : 'asc'}`
-  } else {
-    order = 'createdAt DESC'
-  }
-  return { where,  order,  offset, limit }
+  order = _getOrder(query.order)
+  const bundle = { where,  order,  offset, limit }
+  logger.warn(bundle)
+  return bundle
 }
 
 /**

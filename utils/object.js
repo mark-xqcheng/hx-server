@@ -75,10 +75,30 @@ const getPinyin = (str) => {
   return result.join('').toLowerCase()
 }
 
+/**
+ * 判断该对象中arr数组内的参数名对应的值是否为空，打印判断结果并且返回json
+ * @param obj 带判断的结果 例如： { a: 123, b: null, c: 'hello world' }
+ * @param arr 不能为空的参数名列表 例如： [{ key: '昵称', value: 'nickname'}, {key: '头像', value: 'avatarUrl' }]
+ * @return  判断结果 根据上面两个例子会返回： b, foo 等参数不能为空
+ */
+let smartValidator = (obj, arr) => {
+  let errArr = []
+  arr.forEach((v) => {
+    if (obj[v.value] == null) {
+      errArr.push(v.key)
+    }
+  })
+  if (errArr.length !== 0) {
+    return `${errArr.join(',')} ${ errArr.length === 1 ? '' : '等' }参数不能为空`;
+  }
+  return null;
+}
+
 module.exports = {
   randomArray,
   randomNumber,
   randomString,
   encryptStr,
-  getPinyin
+  getPinyin,
+  smartValidator
 }

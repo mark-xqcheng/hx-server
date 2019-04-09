@@ -7,6 +7,7 @@
   },
   "dependencies": {
     "ali-oss": "^6.1.0",
+    "body-parser": "^1.18.3",
     "co": "^4.6.0",
     "cookie-parser": "~1.4.3",
     "crypto": "^1.0.1",
@@ -18,7 +19,7 @@
     "less-middleware": "~2.2.1",
     "log4js": "^4.1.0",
     "morgan": "~1.9.0",
-    "mysql": "^2.16.0",
+    "mysql2": "^1.6.5",
     "pinyin": "^2.8.3",
     "pug": "2.0.0-beta11",
     "qiniu": "^7.2.1",
