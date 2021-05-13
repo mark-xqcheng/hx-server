@@ -1,26 +1,28 @@
+/*
+ * @Author       : liuxuhao
+ * @LastEditors  : liuxuhao
+ */
 var createError = require('http-errors')
 var express = require('express')
+let ejs = require('ejs')
 var path = require('path')
 var cookieParser = require('cookie-parser')
-const bodyParser = require('body-parser')
-var lessMiddleware = require('less-middleware')
 var logger = require('morgan')
 const loggerHelper = require('./utils/logger')
-
 const indexRouter = require('./apps/routes/index')
 const usersRouter = require('./apps/routes/users')
 
 const app = express()
 
 // view engine setup
+app.engine('.html', ejs.__express);
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'pug');
+app.set('view engine', 'html');
 
 app.use(logger('dev'))
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: true }))
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
 app.use(cookieParser())
-app.use(lessMiddleware(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter)
