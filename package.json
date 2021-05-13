@@ -6,23 +6,20 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
-    "ali-oss": "^6.1.0",
-    "body-parser": "^1.18.3",
+    "ali-oss": "^6.15.2",
+    "body-parser": "^1.19.0",
     "co": "^4.6.0",
-    "cookie-parser": "~1.4.3",
-    "crypto": "^1.0.1",
+    "cookie-parser": "^1.4.5",
     "debug": "~2.6.9",
     "express": "~4.16.0",
     "http-errors": "~1.6.2",
     "jsonwebtoken": "^8.5.1",
     "knuth-shuffle": "^1.0.8",
-    "less-middleware": "~2.2.1",
-    "log4js": "^4.1.0",
+    "log4js": "^4.5.1",
     "morgan": "~1.9.0",
     "mysql2": "^1.6.5",
-    "pinyin": "^2.8.3",
-    "pug": "2.0.0-beta11",
-    "qiniu": "^7.2.1",
-    "sequelize": "^5.2.12"
+    "pinyin": "^2.10.2",
+    "qiniu": "^7.3.2",
+    "sequelize": "^5.22.4"
   }
 }
