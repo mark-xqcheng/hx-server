@@ -9,8 +9,9 @@ var path = require('path')
 var cookieParser = require('cookie-parser')
 var logger = require('morgan')
 const loggerHelper = require('./utils/logger')
-const indexRouter = require('./apps/routes/index')
-const usersRouter = require('./apps/routes/users')
+const indexRouter = require('./app/routes/index')
+const userRouter = require('./app/routes/user')
+/** 可使用 npm run createModule 快速添加模块 */
 
 const app = express()
 
@@ -26,7 +27,8 @@ app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter)
-app.use('/users', usersRouter)
+app.use('/users', userRouter)
+/** 可使用 npm run createModule 快速引用模块 */
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

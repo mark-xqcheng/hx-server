@@ -3,10 +3,12 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "createModule": "node ./scripts/createModule"
   },
   "dependencies": {
     "ali-oss": "^6.15.2",
+    "chalk": "^4.1.1",
     "co": "^4.6.0",
     "cookie-parser": "^1.4.5",
     "debug": "~2.6.9",

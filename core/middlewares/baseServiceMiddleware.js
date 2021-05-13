@@ -27,6 +27,7 @@ const baseServiceMiddleware = (model, requiredArray) => {
     addItem (req, res, next) {
       let resData = null
       const item = req.body
+      console.log('RequestData', res, req, res.body)
       const test = Array.isArray(requiredArray) ? smartValidator(item, requiredArray) : null
       if (test) {
         logger.error(test)

@@ -1,5 +1,6 @@
-const model = require('./../models/user')
+const model = require('./../models/{{name}}')
 const baseServiceMiddleware = require('./../../core/middlewares/baseServiceMiddleware')
 module.exports = {
+  /* 资源相关计算服务添加于此 */
   ...baseServiceMiddleware(model)
 }

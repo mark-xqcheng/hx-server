@@ -94,11 +94,33 @@ let smartValidator = (obj, arr) => {
   return null;
 }
 
+/**
+ * 防抖工具方法
+ * @param {*} fn 需要执行的方法
+ * @param {*} duration  防抖延时
+ * @returns 
+ */
+const debounce = (fn, duration) => {
+  let timeout = null
+  return function () {
+    let ctx = this
+    let args = arguments
+    if (timeout) {
+      clearTimeout(timeout)
+      timeout= null
+    }
+    timeout = setTimeout(function() {
+      fn instanceof Function && fn.apply(ctx, args)
+    }, duration)
+  }
+}
+
 module.exports = {
   randomArray,
   randomNumber,
   randomString,
   encryptStr,
   getPinyin,
-  smartValidator
+  smartValidator,
+  debounce
 }
